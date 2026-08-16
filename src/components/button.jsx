@@ -1,12 +1,12 @@
 export function ButtonEdit({changeMode}) {
     return(
-        <button  onClick={changeMode} >Edit</button>
+        <button className="btn-edit" onClick={changeMode} >Edit</button>
     )
 }
 
 export function ButtonSubmit({changeMode}) {
     return(
-        <button  onClick={changeMode} >Submit</button>
+        <button className="btn-submit" onClick={changeMode} >Submit</button>
     )
 }
 
@@ -18,7 +18,7 @@ export function ButtonAddEducation({addEducation}) {
 
 export function ButtonRemoveEducation({removeEducation, id}) {
     return(
-        <button  onClick={(e)=> removeEducation(e, id)} >X</button>
+        <button className="btn-remove" onClick={(e)=> removeEducation(e, id)} >X</button>
     )
 }
 
@@ -29,9 +29,7 @@ export function ButtonAddExperience({addExperience}) {
 }
 
 export function ButtonRemoveExperience({removeExperience, id}) {
-    console.log(removeExperience, id);
-    
     return(
-        <button  onClick={(e)=> removeExperience(e, id)} >X</button>
+        <button className="btn-remove"  onClick={(e)=> removeExperience(e, id)} >X</button>
     )
 }

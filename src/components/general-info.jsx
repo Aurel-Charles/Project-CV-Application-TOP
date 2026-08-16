@@ -4,12 +4,12 @@ import { ButtonEdit, ButtonSubmit } from './button';
 function GeneralInfo({generalInfo, changeMode}) {
     return (
         <div className="general-info">
-            <h1>General Info</h1>
-            <div className="infos">
-                <p>Firstname: {generalInfo.firstname}</p>
-                <p>Lastname: {generalInfo.lastname}</p>
-                <p>Phone: {generalInfo.phone}</p>
-                <p>Email: {generalInfo.email}</p>
+            <h2>General</h2>
+            <div className="infos general">
+                {generalInfo.firstname && <p>Firstname: {generalInfo.firstname}</p>}
+                {generalInfo.lastname && <p>Lastname: {generalInfo.lastname}</p>}
+                {generalInfo.phone && <p>Phone: {generalInfo.phone}</p>}
+                {generalInfo.email && <p>Email: {generalInfo.email}</p>}
             </div>
             <ButtonEdit changeMode={changeMode}/>
         </div>
@@ -20,9 +20,8 @@ function EditGeneralInfo({generalInfo, handleChange , changeMode}) {
 
     return (
         <div className="edit general-info">
-            <h1>Edit General Info</h1>
+            <h2>Edit General Infos</h2>
             <div className="edit infos">
-                <form>
                     <div>
                         <label htmlFor="firstname">Firstname</label>
                         <input 
@@ -59,9 +58,10 @@ function EditGeneralInfo({generalInfo, handleChange , changeMode}) {
                             onChange={handleChange}
                         />
                     </div>
-                    <ButtonSubmit changeMode={changeMode}/>
-                </form>
             </div>
+                    <div className='cta'>
+                        <ButtonSubmit changeMode={changeMode}/>
+                    </div>
         </div>
     )
 }

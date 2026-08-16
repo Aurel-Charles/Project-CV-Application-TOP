@@ -4,13 +4,17 @@ import { ButtonAddExperience, ButtonEdit, ButtonRemoveExperience, ButtonSubmit }
 
 function ExperienceItem({company, position, description, dateFrom, dateUntil, id}) {
     return(
-        <p id={id} key={id}> {company} / {position} / {description} / {dateFrom} / {dateUntil} / </p> 
+        <div id={id} className="experience">
+            {position && <p className="position">{position}</p>}
+            {company && <p>Company: {company} {dateFrom && `(from: ${dateFrom}`} {dateUntil && `to: ${dateUntil})`}</p>}
+            {description && <p>Description: {description}</p>}
+        </div>
     )
 }
 
 function EditExperienceItem({company, position, description, dateFrom, dateUntil,id, handleChange}) {
     return(
-        <div>
+        <div className="edit experience">
             <div>
                 <label htmlFor="company">Company</label>
                 <input name='company' type="text" value={company} onChange={(e) => handleChange(e, id)} />
@@ -21,15 +25,15 @@ function EditExperienceItem({company, position, description, dateFrom, dateUntil
             </div>
             <div>
                 <label htmlFor="description">Description</label>
-                <input name='description' type="text" value={description} onChange={(e) => handleChange(e, id)}/>
+                <textarea name='description' rows={10} type="text" value={description} onChange={(e) => handleChange(e, id)}></textarea>
             </div> 
             <div>
                 <label htmlFor="dateFrom">From</label>
-                <input name='dateFrom' type="text" value={dateFrom} onChange={(e) => handleChange(e, id)}/>
+                <input name='dateFrom' type="date" value={dateFrom} onChange={(e) => handleChange(e, id)}/>
             </div> 
             <div>
                 <label htmlFor="dateUntil">Until</label>
-                <input name='dateUntil' type="text" value={dateUntil} onChange={(e) => handleChange(e, id)}/>
+                <input name='dateUntil' type="date" value={dateUntil} onChange={(e) => handleChange(e, id)}/>
             </div> 
         </div>
     )
@@ -39,12 +43,11 @@ function EditExperienceItem({company, position, description, dateFrom, dateUntil
 function ExperienceInfo({experiences , changeMode}) {
     return (
         <div className="general-info">
-            <h1>Experience Info</h1>
+            <h2>Experience</h2>
             <div className="infos">
-                {experiences.map((experience, index) => {
+                {experiences.map((experience) => {
                     return(
-                    <div key={experience.key} className='school-experience'>
-                        <p> {index + 1} </p>
+                    <div key={experience.key} className='work-experience'>
                         <ExperienceItem company={experience.company} position={experience.position} description={experience.description} dateFrom={experience.dateFrom} dateUntil={experience.dateUntil} id={experience.key}  />
                     </div>
                 )})
@@ -58,14 +61,14 @@ function ExperienceInfo({experiences , changeMode}) {
 function EditExperienceInfo({experiences, changeMode, handleChange, addExperience, removeExperience}) {
     
     return (
-        <div className="experience-info">
-            <h1> Edit Experience Info</h1>
+        <div className="edit experience-info">
+            <h2> Edit Experience Infos</h2>
             <div className="infos">
                 {experiences.map((experience, index) => {
                     console.log(experience.id);
                     
                     return(
-                    <div key={experience.key} className='school-experience'>
+                    <div key={experience.key} className='work-experience'>
                         <p> {index + 1} </p>
                         <EditExperienceItem company={experience.company} position={experience.position} description={experience.description} dateFrom={experience.dateFrom} dateUntil={experience.dateUntil} id={experience.key} handleChange={handleChange} />
                         <ButtonRemoveExperience removeExperience={removeExperience} id={experience.key}/>
@@ -73,8 +76,10 @@ function EditExperienceInfo({experiences, changeMode, handleChange, addExperienc
                 )})
                 }
             </div>
-            <ButtonAddExperience addExperience={addExperience} />
-            <ButtonSubmit changeMode={changeMode} />
+            <div className="cta">
+                <ButtonAddExperience addExperience={addExperience} />
+                <ButtonSubmit changeMode={changeMode} />
+            </div>
         </div>
     )
 }

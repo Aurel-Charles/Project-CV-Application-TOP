@@ -3,12 +3,16 @@ import { ButtonAddEducation, ButtonEdit, ButtonRemoveEducation, ButtonSubmit } f
 
 function EducationItem({school, study, year, id}) {
     return(
-        <p id={id} key={id}> {study} / {school} / {year} </p> 
+        <p id={id} key={id}>
+            {study} 
+            {school && ` - ${school}`}
+            {year && ` - ${year}`} </p> 
+        
     )
 }
 function EditEducationItem({school, study, year, id, handleChange}) {
     return(
-        <div>
+        <div className='edit educational'>
             <div>
                 <label htmlFor="study">Study</label>
                 <input name='study' type="text" value={study} onChange={(e) => handleChange(e, id)} />
@@ -28,12 +32,11 @@ function EditEducationItem({school, study, year, id, handleChange}) {
 function EducationalInfo({educations, changeMode}) {
     return (
         <div className="general-info">
-            <h1>Education Info</h1>
+            <h2>Education</h2>
             <div className="infos">
-                {educations.map((education, index) => {
+                {educations.map((education) => {
                     return(
                     <div key={education.key} className='school-experience'>
-                        <p> {index + 1} </p>
                         <EducationItem school={education.school} study={education.study} year={education.year} id={education.key} />
                     </div>
                 )})
@@ -46,21 +49,23 @@ function EducationalInfo({educations, changeMode}) {
 
 function EditEducationalInfo({educations,handleChange, changeMode, addEducation, removeEducation}) {
     return (
-        <div className="general-info">
-            <h1> Edit Education Info</h1>
+        <div className="edit educational-info">
+            <h2> Edit Education Infos</h2>
             <div className="infos">
                 {educations.map((education, index) => {
                     return(
                     <div key={education.key} className='school-experience'>
-                        <p> {index + 1} </p>
+                        <p className='index'> {index + 1} </p>
                         <EditEducationItem school={education.school} study={education.study} year={education.year} id={education.key} handleChange={handleChange} />
                         <ButtonRemoveEducation removeEducation={removeEducation} id={education.key} />
                     </div>
                 )})
                 }
             </div>
-            <ButtonAddEducation addEducation={addEducation}/>
-            <ButtonSubmit changeMode={changeMode}/>
+            <div className='cta'>
+                <ButtonAddEducation addEducation={addEducation}/>
+                <ButtonSubmit changeMode={changeMode}/>
+            </div>
         </div>
     )
 }
